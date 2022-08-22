@@ -1,0 +1,2 @@
+../Core/Src/menu.c:10:6:func_set_time	88	static
+../Core/Src/menu.c:104:6:enter_menu	96	static

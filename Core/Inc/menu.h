@@ -1,0 +1,29 @@
+/*
+ * menu.h
+ *
+ *  Created on: Jul 21, 2022
+ *      Author: Anemiq
+ */
+#ifndef INC_MENU_H_
+#define INC_MENU_H_
+
+#include "definitions.h"
+#include "display.h"
+#include "input.h"
+#include "helpers.h"
+#include "main.h"
+
+typedef void (*menuFunc)(void);
+
+typedef struct MenuItem {
+	char *name;
+	menuFunc func;
+	struct MenuItem *prev;
+	struct MenuItem *next;
+} MenuItem;
+
+void func_set_time(void);
+
+void enter_menu(void);
+
+#endif /* INC_MENU_H_ */

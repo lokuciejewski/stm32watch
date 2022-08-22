@@ -1,0 +1,9 @@
+../Core/Src/helpers.c:10:9:byte_to_bcd	24	static
+../Core/Src/helpers.c:14:9:bcd_to_byte	16	static
+../Core/Src/helpers.c:18:6:led_red_on	8	static
+../Core/Src/helpers.c:21:6:led_red_off	8	static
+../Core/Src/helpers.c:25:6:led_green_on	8	static
+../Core/Src/helpers.c:28:6:led_green_off	8	static
+../Core/Src/helpers.c:32:6:read_time	24	static
+../Core/Src/helpers.c:44:6:write_time	32	static
+../Core/Src/helpers.c:57:7:get_battery_voltage	8	static
