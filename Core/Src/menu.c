@@ -101,17 +101,27 @@ void func_set_time() {
 	}
 }
 
+void func_version(void) {
+	char buffer[9];
+	snprintf(buffer, 9, "VER %03d", FIRMWARE_VERSION);
+	print_string(buffer);
+	HAL_Delay(500);
+	wait_for_buttons_released();
+}
+
 void enter_menu(void) {
 
 	MenuItem set_time = { "SET TIME", func_set_time, NULL, NULL };
 	MenuItem set_date = { "SET DATE", NULL, &set_time, NULL };
 	MenuItem set_shortcut = { "SHORTCUT", NULL, &set_date, NULL };
-	MenuItem status_menu = { "STATUS ", NULL, &set_shortcut, &set_time };
+	MenuItem version = {"VERSION ", func_version, &set_shortcut, NULL };
+	MenuItem status_menu = { "STATUS ", NULL, &version, &set_time };
 
 	set_time.prev = &status_menu;
 	set_time.next = &set_date;
 	set_date.next = &set_shortcut;
-	set_shortcut.next = &status_menu;
+	version.next = &status_menu;
+	set_shortcut.next = &version;
 
 	MenuItem menu = status_menu;
 	print_string("  MENU  ");

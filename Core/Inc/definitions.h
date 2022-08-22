@@ -10,6 +10,8 @@
 #include "stm32l0xx_hal.h"
 #include <stdbool.h>
 
+#define FIRMWARE_VERSION 44
+
 #define BTN_L_PORT GPIOB
 #define BTN_L GPIO_PIN_4
 

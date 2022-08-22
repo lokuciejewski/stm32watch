@@ -1,0 +1,14 @@
+../Core/Src/display.c:11:6:enable_displays	0	static
+../Core/Src/display.c:15:6:disable_displays	0	static
+../Core/Src/display.c:19:6:set_data	0	static
+../Core/Src/display.c:23:6:print_char	16	static
+../Core/Src/display.c:46:6:print_string	16	static
+../Core/Src/display.c:52:6:scroll_text	32	static
+../Core/Src/display.c:65:6:print_time	32	static
+../Core/Src/display.c:84:6:print_new_time	32	static
+../Core/Src/display.c:90:6:print_time_partial	8	static
+../Core/Src/display.c:94:6:print_time_full	8	static
+../Core/Src/display.c:98:6:print_time_off	8	static
+../Core/Src/display.c:102:6:print_time_blink_hours	32	static
+../Core/Src/display.c:112:6:print_time_blink_minutes	32	static
+../Core/Src/display.c:122:6:print_time_blink_seconds	32	static
