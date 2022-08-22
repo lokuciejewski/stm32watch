@@ -2816,7 +2816,7 @@
   (gr_text "MOT2" (at 130 84) (layer "B.SilkS") (tstamp fc1edd3a-eeba-4363-801e-0500dd435c86)
     (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
   )
-  (gr_text "STM32Watch v1.0" (at 92 61.75 90) (layer "F.SilkS") (tstamp c64fc038-048d-417d-b28c-80e21c47acfe)
+  (gr_text "STM32Watch v1.1" (at 92 61.75 90) (layer "F.SilkS") (tstamp c64fc038-048d-417d-b28c-80e21c47acfe)
     (effects (font (size 1 1) (thickness 0.15)))
   )
 
