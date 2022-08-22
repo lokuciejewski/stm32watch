@@ -1,0 +1,39 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# Broadcom HPDL-1414
+#
+DEF HPDL-1414 L 0 40 Y Y 1 L N
+F0 "L" 0 200 50 H V L CNN 
+F1 "HPDL-1414" 0 300 50 H V L CNN 
+F2 "Broadcom-HPDL-1414-*" 0 400 50 H I L CNN 
+F3 "https://media.digikey.com/pdf/Data%20Sheets/Avago%20PDFs/HPDL-1414.pdf" 0 500 50 H I L CNN 
+F4 "Ind" 0 600 50 H I L CNN "category"
+F5 "LED DISPL 16SEG 4CHAR 2.85MM RED" 0 700 50 H I L CNN "digikey description"
+F6 "516-1170-5-ND" 0 800 50 H I L CNN "digikey part number"
+F7 "yes" 0 900 50 H I L CNN "lead free"
+F8 "d4f1ed8066bb970b" 0 1000 50 H I L CNN "library id"
+F9 "Broadcom" 0 1100 50 H I L CNN "manufacturer"
+F10 "630-HPDL-1414" 0 1200 50 H I L CNN "mouser part number"
+F11 "DIP12" 0 1300 50 H I L CNN "package"
+F12 "yes" 0 1400 50 H I L CNN "rohs"
+F13 "+85°C" 0 1500 50 H I L CNN "temperature range high"
+F14 "-40°C" 0 1600 50 H I L CNN "temperature range low"
+DRAW
+X D0_DATA_INPUT 8 100 -200 100 R 40 40 1 1 U 
+X D1_DATA_INPUT 9 100 -300 100 R 40 40 1 1 U 
+X D2_DATA_INPUT 10 100 -400 100 R 40 40 1 1 U 
+X D3_DATA_INPUT 11 100 -500 100 R 40 40 1 1 U 
+X D4_DATA_INPUT 2 100 -600 100 R 40 40 1 1 U 
+X D5_DATA_INPUT 1 100 -700 100 R 40 40 1 1 U 
+X D6_DATA_INPUT 12 100 -800 100 R 40 40 1 1 U 
+X VDD 6 100 0 100 R 40 40 1 1 U 
+X ~WR_WRITE~ 3 2100 0 100 L 40 40 1 1 U 
+X A0_DIGIT_SELECT 5 2100 -200 100 L 40 40 1 1 U 
+X A1_DIGIT_SELECT 4 2100 -300 100 L 40 40 1 1 U 
+X GND 7 2100 -800 100 L 40 40 1 1 U 
+S 200 100 2000 -900 1 1 0 f
+ENDDRAW
+ENDDEF
+#
+# End Library

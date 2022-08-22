@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name "eec")(type "Legacy")(uri "${KIPRJMOD}/HPDL1414/eec.lib")(options "")(descr ""))
+  (lib (name "ltc3531")(type "KiCad")(uri "${KIPRJMOD}/ltc3531.kicad_sym")(options "")(descr ""))
+  (lib (name "xc9141")(type "KiCad")(uri "${KIPRJMOD}/xc9141.kicad_sym")(options "")(descr ""))
+)

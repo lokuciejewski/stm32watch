@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "eec")(type "KiCad")(uri "${KIPRJMOD}/HPDL1414/eec.pretty")(options "")(descr ""))
+  (lib (name "USB-C-Connectors")(type "KiCad")(uri "${KIPRJMOD}/USB-C-Connectors/Kicad/Footprints/USB-C-Power-tester.pretty")(options "")(descr ""))
+)
