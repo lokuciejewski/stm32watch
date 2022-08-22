@@ -1,3 +1,0 @@
-../Core/Src/input.c:55:6:wait_for_buttons_released	0	static
-../Core/Src/input.c:9:9:wait_for_input	32	static
-../Core/Src/input.c:61:6:buzz_motor	8	static

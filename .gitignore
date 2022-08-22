@@ -1,2 +1,4 @@
 .vscode/
 Kicad files/Watch_board-backups/*
+Debug/
+Release/
