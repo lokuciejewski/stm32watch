@@ -6,7 +6,7 @@ This project is a simplistic STM32L031K6-based hand watch. It uses two HP's HPDL
 
 ## Main functions
 
-Apart from keeping the time and date, the watch is capable of displaying the current ambient temperature and pressure, courtesy of Bosch BMP280 (which can be hot-swapped for BME280 for additional humidity data) and battery voltage.
+Apart from keeping the time and date, the watch is capable of displaying the current ambient temperature and pressure, courtesy of Bosch BMP280 (which can be hot-swapped for BME280 for additional humidity data) and battery voltage. The watch is also equipped with two user-programmable LEDs - green and red by default, one charging indicator LED - yellow and a vibration motor (also fully programmable). It uses USB type C for convenient charging, though it is not compatible with some of the USB-C chargers (looking at you, MacBook charger).
 
 ## PCB design
 
