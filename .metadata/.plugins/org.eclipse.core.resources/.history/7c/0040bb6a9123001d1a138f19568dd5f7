@@ -1,0 +1,7 @@
+
+
+void enable_ds3231_pin(void);
+void disable_ds3231_pin(void);
+
+void read_time(void);
+void write_time(void);

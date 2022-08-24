@@ -1,0 +1,23 @@
+/*
+ * ds3231mz.h
+ *
+ *  Created on: Aug 24, 2022
+ *      Author: Anemiq
+ */
+
+#include "definitions.h"
+#include "main.h"
+
+#ifndef INC_DS3231MZ_H_
+#define INC_DS3231MZ_H_
+
+void enable_ds3231_pin(void);
+void disable_ds3231_pin(void);
+
+void read_time(void);
+void write_time(void);
+
+void read_date(void);
+void write_date(void);
+
+#endif

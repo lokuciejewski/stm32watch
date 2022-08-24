@@ -1,0 +1,172 @@
+/*
+ * display.c
+ *
+ *  Created on: Jul 21, 2022
+ *      Author: Anemiq
+ */
+
+#include "display.h"
+
+void enable_displays(void) {
+	DISP_EN_GPIO_Port->ODR |= DISP_EN_Pin;
+}
+
+void disable_displays(void) {
+	DISP_EN_GPIO_Port->ODR &= ~DISP_EN_Pin;
+}
+
+void set_data(const uint8_t data) {
+	SEG_DATA = (SEG_DATA & 0b1111111110000000) | data;
+}
+
+void print_char(const uint8_t field, const char c) {
+	if (~field & 0b1) {
+		ADD_REG |= A0;
+	} else {
+		ADD_REG &= ~A0;
+	}
+	if ((~field >> 1) & 0b1) {
+		ADD_REG |= A1;
+	} else {
+		ADD_REG &= ~A1;
+	}
+	set_data(c);
+	if ((field >> 2) & 0b1) {
+		WE_REG |= W1;
+		WE_REG &= ~W0;
+	} else {
+		WE_REG |= W0;
+		WE_REG &= ~W1;
+	}
+	WE_REG |= W0 | W1;
+	set_data(0);
+}
+
+void print_string(const char *str) {
+	for (uint8_t i = 0; i < 8; i++) {
+		print_char(i, str[i]);
+	}
+}
+
+void scroll_text(const char *str, const uint8_t len, const uint16_t delay_ms) {
+	HAL_Delay(delay_ms);
+	for (uint8_t i = 0; i <= len - 8; i++) {
+		print_string(str++);
+		HAL_Delay(delay_ms);
+	}
+	for (uint8_t i = len - 8; i > 0; i--) {
+		print_string(--str);
+		HAL_Delay(delay_ms);
+	}
+	print_string(--str);
+}
+
+void print_time(const uint8_t mode) {
+	char buffer[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	char sec_dot = ' ';
+	switch (mode) {
+	case DISPLAY_MODE_PARTIAL:
+		if (seconds % 2) {
+			sec_dot = '.';
+		}
+		snprintf(buffer, 9, "  %02d%c%02d ", hours, sec_dot, minutes);
+		break;
+	case DISPLAY_MODE_FULL:
+		snprintf(buffer, 9, "%02d.%02d.%02d", hours, minutes, seconds);
+		break;
+	case DISPLAY_MODE_OFF:
+		break;
+	}
+	print_string(buffer);
+}
+
+void print_new_time(void) {
+	char buffer[9];
+	snprintf(buffer, 9, "%02d.%02d.%02d", new_hours, new_minutes, new_seconds);
+	print_string(buffer);
+}
+
+void print_time_partial(void) {
+	print_time(DISPLAY_MODE_PARTIAL);
+}
+
+void print_time_full(void) {
+	print_time(DISPLAY_MODE_FULL);
+}
+
+void print_time_off(void) {
+	print_time(DISPLAY_MODE_OFF);
+}
+
+void print_time_blink_hours(void) {
+	if (blink) {
+		print_new_time();
+	} else {
+		char buffer[9];
+		snprintf(buffer, 9, "  .%02d.%02d", new_minutes, new_seconds);
+		print_string(buffer);
+	}
+}
+
+void print_time_blink_minutes(void) {
+	if (blink) {
+		print_new_time();
+	} else {
+		char buffer[9];
+		snprintf(buffer, 9, "%02d.  .%02d", new_hours, new_seconds);
+		print_string(buffer);
+	}
+}
+
+void print_time_blink_seconds(void) {
+	if (blink) {
+		print_new_time();
+	} else {
+		char buffer[9];
+		snprintf(buffer, 9, "%02d.%02d.  ", new_hours, new_minutes);
+		print_string(buffer);
+	}
+}
+
+void print_date(void) {
+	read_date();
+	char buffer[9];
+	snprintf(buffer, 9, "%02d/%02d/%02d", day, month, year);
+	print_string(buffer);
+}
+
+void print_new_date(void) {
+	char buffer[9];
+	snprintf(buffer, 9, "%02d/%02d/%02d", new_day, new_month, new_year);
+	print_string(buffer);
+}
+
+void print_date_blink_day(void) {
+	if (blink) {
+		print_new_date();
+	} else {
+		char buffer[9];
+		snprintf(buffer, 9, "  /%02d/%02d", new_month, new_year);
+		print_string(buffer);
+	}
+}
+
+void print_date_blink_month(void) {
+	if (blink) {
+			print_new_date();
+		} else {
+			char buffer[9];
+			snprintf(buffer, 9, "%02d/  /%02d", new_day, new_year);
+			print_string(buffer);
+		}
+}
+
+void print_date_blink_year(void) {
+	if (blink) {
+			print_new_date();
+		} else {
+			char buffer[9];
+			snprintf(buffer, 9, "%02d/%02d/  ", new_day, new_month);
+			print_string(buffer);
+		}
+}

@@ -1,0 +1,127 @@
+!SESSION 2022-08-23 23:19:36.925 -----------------------------------------------
+eclipse.buildId=Version 1.10.1
+java.version=11.0.14.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_GB
+Framework arguments:  -keyring /Users/anemiq/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -data /Users/anemiq/Projects/stm32watch -keyring /Users/anemiq/.eclipse_keyring
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-08-23 23:19:45.840
+!MESSAGE Log4j initialized with config file /Users/anemiq/Projects/stm32watch/.metadata/.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-08-23 23:19:50.689
+!MESSAGE Started RMI Server, listening on port 41338
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-08-23 23:20:28.019
+!MESSAGE Indexed 'STM32Watch' (11 sources, 61 headers) in 4.37 sec: 2,236 declarations; 3,636 references; 18 unresolved inclusions; 1 syntax errors; 573 unresolved names (8.9%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-08-23 23:21:31.832
+!MESSAGE Indexed 'STM32Watch' (29 sources, 124 headers) in 4.69 sec: 10,353 declarations; 54,124 references; 2 unresolved inclusions; 33 syntax errors; 188 unresolved names (0.29%)
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2022-08-23 23:23:00.178
+!MESSAGE Error in final launch sequence:
+
+Failed to execute MI command:
+target remote localhost:61234
+
+Error message from debugger back end:
+localhost:61234: Operation timed out.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Failed to execute MI command:
+target remote localhost:61234
+
+Error message from debugger back end:
+localhost:61234: Operation timed out.
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:326)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1021)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1224)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: java.lang.Exception: localhost:61234: Operation timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10004 2022-08-23 23:23:00.182
+!MESSAGE Failed to execute MI command:
+target remote localhost:61234
+
+Error message from debugger back end:
+localhost:61234: Operation timed out.
+!STACK 0
+java.lang.Exception: localhost:61234: Operation timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2022-08-24 11:10:11.681
+!MESSAGE Error in final launch sequence:
+
+Failed to execute MI command:
+load /Users/anemiq/Projects/stm32watch/STM32Watch/Release/STM32Watch.elf 
+
+Error message from debugger back end:
+Error finishing flash operation
+!STACK 1
+org.eclipse.core.runtime.CoreException: Failed to execute MI command:
+load /Users/anemiq/Projects/stm32watch/STM32Watch/Release/STM32Watch.elf 
+
+Error message from debugger back end:
+Error finishing flash operation
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:326)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1021)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1224)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Contains: Failed to execute MI command:
+load /Users/anemiq/Projects/stm32watch/STM32Watch/Release/STM32Watch.elf 
+
+Error message from debugger back end:
+Error finishing flash operation
+java.lang.Exception: Error finishing flash operation
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+!SUBENTRY 1 org.eclipse.cdt.dsf 4 10004 2022-08-24 11:10:11.682
+!MESSAGE Failed to execute MI command:
+load /Users/anemiq/Projects/stm32watch/STM32Watch/Release/STM32Watch.elf 
+
+Error message from debugger back end:
+Error finishing flash operation
+!SUBENTRY 2 org.eclipse.cdt.dsf.gdb 4 10004 2022-08-24 11:10:11.682
+!MESSAGE Failed to execute MI command:
+load /Users/anemiq/Projects/stm32watch/STM32Watch/Release/STM32Watch.elf 
+
+Error message from debugger back end:
+Error finishing flash operation
+!STACK 0
+java.lang.Exception: Error finishing flash operation
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+
+!ENTRY org.eclipse.cdt.ui 4 0 2022-08-24 11:53:06.230
+!MESSAGE Error in CDT UI during reconcile
+!STACK 1
+C Model Exception: C Model Status [Element ds3231mz.c does not exist.]
+	at org.eclipse.cdt.internal.core.model.CElement.newNotPresentException(CElement.java:485)
+	at org.eclipse.cdt.internal.core.model.TranslationUnit.makeConsistent(TranslationUnit.java:583)
+	at org.eclipse.cdt.internal.core.model.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:65)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:346)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:613)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.runOperation(CModelOperation.java:641)
+	at org.eclipse.cdt.internal.core.model.WorkingCopy.reconcile(WorkingCopy.java:365)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:79)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:64)
+	at org.eclipse.cdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:89)
+	at org.eclipse.cdt.internal.ui.text.CCompositeReconcilingStrategy.reconcile(CCompositeReconcilingStrategy.java:90)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.cdt.internal.ui.text.CReconciler.process(CReconciler.java:346)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+!SUBENTRY 1 org.eclipse.cdt.core 4 969 2022-08-24 11:53:06.235
+!MESSAGE Element ds3231mz.c does not exist.

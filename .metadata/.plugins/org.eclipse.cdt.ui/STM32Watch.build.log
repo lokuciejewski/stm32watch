@@ -1,0 +1,180 @@
+13:59:48 **** Incremental Build of configuration Release for project STM32Watch ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/definitions.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/definitions.d" -MT"Core/Src/definitions.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/definitions.o"
+arm-none-eabi-gcc "../Core/Src/display.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/display.d" -MT"Core/Src/display.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/display.o"
+arm-none-eabi-gcc "../Core/Src/ds3231mz.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/ds3231mz.d" -MT"Core/Src/ds3231mz.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/ds3231mz.o"
+arm-none-eabi-gcc "../Core/Src/helpers.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/helpers.d" -MT"Core/Src/helpers.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/helpers.o"
+arm-none-eabi-gcc "../Core/Src/input.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/input.d" -MT"Core/Src/input.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/input.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/menu.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/menu.d" -MT"Core/Src/menu.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/menu.o"
+arm-none-eabi-gcc "../Core/Src/stm32l0xx_hal_msp.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32l0xx_hal_msp.d" -MT"Core/Src/stm32l0xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32l0xx_hal_msp.o"
+../Core/Src/menu.c: In function 'func_set_date':
+../Core/Src/menu.c:45:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+   45 |    if (menu.name == "SET DAY ") {
+      |                  ^~
+../Core/Src/menu.c:50:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+   50 |    if (menu.name == "SET MNTH") {
+      |                  ^~
+../Core/Src/menu.c:55:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+   55 |    if (menu.name == "SET YEAR") {
+      |                  ^~
+../Core/Src/menu.c:67:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+   67 |    if (menu.name == "SET DAY ") {
+      |                  ^~
+../Core/Src/menu.c:72:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+   72 |    if (menu.name == "SET MNTH") {
+      |                  ^~
+../Core/Src/menu.c:77:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+   77 |    if (menu.name == "SET YEAR") {
+      |                  ^~
+../Core/Src/menu.c:92:11: warning: implicit declaration of function 'fmin' [-Wimplicit-function-declaration]
+   92 |     day = fmin(30, new_day);
+      |           ^~~~
+../Core/Src/menu.c:92:11: warning: incompatible implicit declaration of built-in function 'fmin'
+../Core/Src/menu.c:9:1: note: include '<math.h>' or provide a declaration of 'fmin'
+    8 | #include "menu.h"
+  +++ |+#include <math.h>
+    9 | 
+../Core/Src/menu.c:95:12: warning: incompatible implicit declaration of built-in function 'fmin'
+   95 |      day = fmin(29, new_day);
+      |            ^~~~
+../Core/Src/menu.c:95:12: note: include '<math.h>' or provide a declaration of 'fmin'
+../Core/Src/menu.c: In function 'func_set_time':
+../Core/Src/menu.c:136:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+  136 |    if (menu.name == "SET SECS") {
+      |                  ^~
+../Core/Src/menu.c:141:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+  141 |    if (menu.name == "SET MINS") {
+      |                  ^~
+../Core/Src/menu.c:146:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+  146 |    if (menu.name == "SET HOUR") {
+      |                  ^~
+../Core/Src/menu.c:158:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+  158 |    if (menu.name == "SET SECS") {
+      |                  ^~
+../Core/Src/menu.c:163:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+  163 |    if (menu.name == "SET MINS") {
+      |                  ^~
+../Core/Src/menu.c:168:18: warning: comparison with string literal results in unspecified behavior [-Waddress]
+  168 |    if (menu.name == "SET HOUR") {
+      |                  ^~
+arm-none-eabi-gcc "../Core/Src/stm32l0xx_it.c" -mcpu=cortex-m0plus -std=gnu11 -DUSE_HAL_DRIVER -DSTM32L031xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32l0xx_it.d" -MT"Core/Src/stm32l0xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32l0xx_it.o"
+../Core/Src/display.c: In function 'print_time':
+../Core/Src/display.c:72:36: warning: ' ' directive output may be truncated writing 1 byte into a region of size between 0 and 2 [-Wformat-truncation=]
+   72 |   snprintf(buffer, 9, "  %02d%c%02d ", hours, sec_dot, minutes);
+      |                                    ^
+../Core/Src/display.c:72:3: note: 'snprintf' output between 9 and 11 bytes into a destination of size 9
+   72 |   snprintf(buffer, 9, "  %02d%c%02d ", hours, sec_dot, minutes);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c:75:34: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 1 and 3 [-Wformat-truncation=]
+   75 |   snprintf(buffer, 9, "%02d.%02d.%02d", hours, minutes, seconds);
+      |                                  ^~~~
+../Core/Src/display.c:75:23: note: directive argument in the range [0, 255]
+   75 |   snprintf(buffer, 9, "%02d.%02d.%02d", hours, minutes, seconds);
+      |                       ^~~~~~~~~~~~~~~~
+../Core/Src/display.c:75:3: note: 'snprintf' output between 9 and 12 bytes into a destination of size 9
+   75 |   snprintf(buffer, 9, "%02d.%02d.%02d", hours, minutes, seconds);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_new_time':
+../Core/Src/display.c:85:33: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 1 and 3 [-Wformat-truncation=]
+   85 |  snprintf(buffer, 9, "%02d.%02d.%02d", new_hours, new_minutes, new_seconds);
+      |                                 ^~~~
+../Core/Src/display.c:85:22: note: directive argument in the range [0, 255]
+   85 |  snprintf(buffer, 9, "%02d.%02d.%02d", new_hours, new_minutes, new_seconds);
+      |                      ^~~~~~~~~~~~~~~~
+../Core/Src/display.c:85:2: note: 'snprintf' output between 9 and 12 bytes into a destination of size 9
+   85 |  snprintf(buffer, 9, "%02d.%02d.%02d", new_hours, new_minutes, new_seconds);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_time_blink_hours':
+../Core/Src/display.c:106:32: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 2 and 3 [-Wformat-truncation=]
+  106 |   snprintf(buffer, 9, "  .%02d.%02d", new_minutes, new_seconds);
+      |                                ^~~~
+../Core/Src/display.c:106:23: note: directive argument in the range [0, 255]
+  106 |   snprintf(buffer, 9, "  .%02d.%02d", new_minutes, new_seconds);
+      |                       ^~~~~~~~~~~~~~
+../Core/Src/display.c:106:3: note: 'snprintf' output between 9 and 11 bytes into a destination of size 9
+  106 |   snprintf(buffer, 9, "  .%02d.%02d", new_minutes, new_seconds);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_time_blink_minutes':
+../Core/Src/display.c:116:32: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 2 and 3 [-Wformat-truncation=]
+  116 |   snprintf(buffer, 9, "%02d.  .%02d", new_hours, new_seconds);
+      |                                ^~~~
+../Core/Src/display.c:116:23: note: directive argument in the range [0, 255]
+  116 |   snprintf(buffer, 9, "%02d.  .%02d", new_hours, new_seconds);
+      |                       ^~~~~~~~~~~~~~
+../Core/Src/display.c:116:3: note: 'snprintf' output between 9 and 11 bytes into a destination of size 9
+  116 |   snprintf(buffer, 9, "%02d.  .%02d", new_hours, new_seconds);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_time_blink_seconds':
+../Core/Src/display.c:126:33: warning: '.  ' directive output may be truncated writing 3 bytes into a region of size between 2 and 4 [-Wformat-truncation=]
+  126 |   snprintf(buffer, 9, "%02d.%02d.  ", new_hours, new_minutes);
+      |                                 ^~~
+../Core/Src/display.c:126:3: note: 'snprintf' output between 9 and 11 bytes into a destination of size 9
+  126 |   snprintf(buffer, 9, "%02d.%02d.  ", new_hours, new_minutes);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_date':
+../Core/Src/display.c:134:33: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 1 and 3 [-Wformat-truncation=]
+  134 |  snprintf(buffer, 9, "%02d/%02d/%02d", day, month, year);
+      |                                 ^~~~
+../Core/Src/display.c:134:22: note: directive argument in the range [0, 255]
+  134 |  snprintf(buffer, 9, "%02d/%02d/%02d", day, month, year);
+      |                      ^~~~~~~~~~~~~~~~
+../Core/Src/display.c:134:2: note: 'snprintf' output between 9 and 12 bytes into a destination of size 9
+  134 |  snprintf(buffer, 9, "%02d/%02d/%02d", day, month, year);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_new_date':
+../Core/Src/display.c:140:33: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 1 and 3 [-Wformat-truncation=]
+  140 |  snprintf(buffer, 9, "%02d/%02d/%02d", new_day, new_month, new_year);
+      |                                 ^~~~
+../Core/Src/display.c:140:22: note: directive argument in the range [0, 255]
+  140 |  snprintf(buffer, 9, "%02d/%02d/%02d", new_day, new_month, new_year);
+      |                      ^~~~~~~~~~~~~~~~
+../Core/Src/display.c:140:2: note: 'snprintf' output between 9 and 12 bytes into a destination of size 9
+  140 |  snprintf(buffer, 9, "%02d/%02d/%02d", new_day, new_month, new_year);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_date_blink_day':
+../Core/Src/display.c:149:32: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 2 and 3 [-Wformat-truncation=]
+  149 |   snprintf(buffer, 9, "  /%02d/%02d", new_month, new_year);
+      |                                ^~~~
+../Core/Src/display.c:149:23: note: directive argument in the range [0, 255]
+  149 |   snprintf(buffer, 9, "  /%02d/%02d", new_month, new_year);
+      |                       ^~~~~~~~~~~~~~
+../Core/Src/display.c:149:3: note: 'snprintf' output between 9 and 11 bytes into a destination of size 9
+  149 |   snprintf(buffer, 9, "  /%02d/%02d", new_month, new_year);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_date_blink_month':
+../Core/Src/display.c:159:32: warning: '%02d' directive output may be truncated writing between 2 and 3 bytes into a region of size between 2 and 3 [-Wformat-truncation=]
+  159 |   snprintf(buffer, 9, "%02d/  /%02d", new_day, new_year);
+      |                                ^~~~
+../Core/Src/display.c:159:23: note: directive argument in the range [0, 255]
+  159 |   snprintf(buffer, 9, "%02d/  /%02d", new_day, new_year);
+      |                       ^~~~~~~~~~~~~~
+../Core/Src/display.c:159:3: note: 'snprintf' output between 9 and 11 bytes into a destination of size 9
+  159 |   snprintf(buffer, 9, "%02d/  /%02d", new_day, new_year);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/display.c: In function 'print_date_blink_year':
+../Core/Src/display.c:169:33: warning: '/  ' directive output may be truncated writing 3 bytes into a region of size between 2 and 4 [-Wformat-truncation=]
+  169 |   snprintf(buffer, 9, "%02d/%02d/  ", new_day, new_month);
+      |                                 ^~~
+../Core/Src/display.c:169:3: note: 'snprintf' output between 9 and 11 bytes into a destination of size 9
+  169 |   snprintf(buffer, 9, "%02d/%02d/  ", new_day, new_month);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/stm32l0xx_it.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/stm32l0xx_it.c:177:3: warning: implicit declaration of function 'SystemClock_Config'; did you mean 'SysTick_Config'? [-Wimplicit-function-declaration]
+  177 |   SystemClock_Config();
+      |   ^~~~~~~~~~~~~~~~~~
+      |   SysTick_Config
+arm-none-eabi-gcc -o "STM32Watch.elf" @"objects.list"   -mcpu=cortex-m0plus -T"/Users/anemiq/Projects/stm32watch/STM32Watch/STM32L031K6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32Watch.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: STM32Watch.elf
+ 
+arm-none-eabi-size   STM32Watch.elf 
+arm-none-eabi-objdump -h -S  STM32Watch.elf  > "STM32Watch.list"
+   text	   data	    bss	    dec	    hex	filename
+  23396	    128	   1912	  25436	   635c	STM32Watch.elf
+Finished building: default.size.stdout
+ 
+Finished building: STM32Watch.list
+ 
+
+13:59:48 Build Finished. 0 errors, 27 warnings. (took 631ms)
+

@@ -1,0 +1,88 @@
+/*
+ * definitions.h
+ *
+ *  Created on: Jul 21, 2022
+ *      Author: Anemiq
+ */
+
+#ifndef INC_DEFINITIONS_H_
+#define INC_DEFINITIONS_H_
+#include "stm32l0xx_hal.h"
+#include <stdbool.h>
+
+#define FIRMWARE_VERSION 51
+
+#define BTN_L_PORT GPIOB
+#define BTN_L GPIO_PIN_4
+
+#define BTN_R_PORT GPIOB
+#define BTN_R GPIO_PIN_5
+
+#define LED_G_PORT GPIOB
+#define LED_G GPIO_PIN_3
+
+#define LED_R_PORT GPIOA
+#define LED_R GPIO_PIN_11
+
+#define SEG_DATA GPIOA->ODR
+#define SEG_PORT GPIOA
+#define ADD_REG GPIOB->ODR
+#define ADD_PORT GPIOB
+#define A0 GPIO_PIN_0
+#define A1 GPIO_PIN_1
+#define WE_REG GPIOB->ODR
+#define WE_PORT GPIOB
+#define W0 GPIO_PIN_6
+#define W1 GPIO_PIN_7
+
+#define DS3231_I2C_ADDRESS 0x68
+#define DS3231_EN GPIO_PIN_8
+#define DS3231_EN_PORT GPIOA
+#define DS3231_INT_PORT GPIOA
+#define DS3231_INT GPIO_PIN_12
+
+#define BME280_I2C_ADDRESS 0x76
+
+#define SHORT_PRESS_DURATION_MS 500
+#define LONG_PRESS_DURATION_MS 1000
+
+#define INPUT_NO_INPUT 0
+#define INPUT_RIGHT_BUTTON_SHORT_PRESS 1
+#define INPUT_RIGHT_BUTTON_LONG_PRESS 2
+#define INPUT_LEFT_BUTTON_SHORT_PRESS 3
+#define INPUT_LEFT_BUTTON_LONG_PRESS 4
+#define INPUT_BOTH_BUTTONS_SHORT_PRESS 5
+#define INPUT_BOTH_BUTTONS_LONG_PRESS 6
+
+#define DISPLAY_MODE_OFF 0
+#define DISPLAY_MODE_PARTIAL 1
+#define DISPLAY_MODE_FULL 2
+
+#define BATTERY_CRITICAL_VOLTAGE 3.2
+#define BATTERY_CRITICAL_VOLTAGE_OFF 3.3
+#define BATTERY_LOW_VOLTAGE 3.4
+#define BATTERY_LOW_VOLTAGE_OFF 3.5
+
+extern const uint32_t SEG_PINS[7];
+
+extern uint32_t battery_voltage;
+extern volatile bool battery_critical_mode;
+
+extern volatile bool left_button_pressed;
+extern volatile bool right_button_pressed;
+
+extern volatile uint8_t sleep_timeout_counter;
+extern volatile uint8_t sleep_timeout_s;
+extern volatile uint8_t timer_compensation;
+
+extern uint8_t hours;
+extern uint8_t minutes;
+extern uint8_t seconds;
+
+extern volatile bool new_time_blink;
+extern volatile uint8_t new_hours;
+extern volatile uint8_t new_minutes;
+extern volatile uint8_t new_seconds;
+
+
+#endif /* INC_DEFINITIONS_H_ */

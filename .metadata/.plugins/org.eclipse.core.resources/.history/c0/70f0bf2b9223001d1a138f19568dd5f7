@@ -1,0 +1,38 @@
+#include "ds3231mz.h"
+
+void enable_ds3231_pin(void) {
+	DS3231_EN_PORT->ODR |= DS3231_EN;
+}
+
+void disable_ds3231_pin(void) {
+	DS3231_EN_PORT->ODR &= ~DS3231_EN;
+}
+
+void read_time(void) {
+	HAL_I2C_Mem_Read(&hi2c1, (DS3231_I2C_ADDRESS << 1), 0x0, 1, &seconds, 1,
+			1000);
+	HAL_I2C_Mem_Read(&hi2c1, (DS3231_I2C_ADDRESS << 1), 0x1, 1, &minutes, 1,
+			1000);
+	HAL_I2C_Mem_Read(&hi2c1, (DS3231_I2C_ADDRESS << 1), 0x2, 1, &hours, 1,
+			1000);
+	seconds = bcd_to_byte(seconds);
+	minutes = bcd_to_byte(minutes);
+	hours = bcd_to_byte(hours);
+}
+
+void write_time(void) {
+	uint8_t bcd_seconds = byte_to_bcd(seconds);
+	uint8_t bcd_minutes = byte_to_bcd(minutes);
+	uint8_t bcd_hours = byte_to_bcd(hours);
+	HAL_I2C_Mem_Write(&hi2c1, (DS3231_I2C_ADDRESS << 1), 0x0, 1, &bcd_seconds,
+			1, 1000);
+	HAL_I2C_Mem_Write(&hi2c1, (DS3231_I2C_ADDRESS << 1), 0x1, 1, &bcd_minutes,
+			1, 1000);
+	HAL_I2C_Mem_Write(&hi2c1, (DS3231_I2C_ADDRESS << 1), 0x2, 1, &bcd_hours, 1,
+			1000);
+}
+
+void read_date(void) {
+	HAL_I2C_Mem_Read(&hi2c1, (DS3231_I2C_ADDRESS << 1, 0x4, 1, &day, 1, 1000));
+	HAL_I2C_Mem_Read(&hi2c1, (DS3231_I2C_ADDRESS << 1), 0x5, 1, &month, 1, 1000));
+}
