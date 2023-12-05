@@ -1,5 +1,8 @@
 (sym_lib_table
+  (version 7)
   (lib (name "eec")(type "Legacy")(uri "${KIPRJMOD}/HPDL1414/eec.lib")(options "")(descr ""))
   (lib (name "ltc3531")(type "KiCad")(uri "${KIPRJMOD}/ltc3531.kicad_sym")(options "")(descr ""))
   (lib (name "xc9141")(type "KiCad")(uri "${KIPRJMOD}/xc9141.kicad_sym")(options "")(descr ""))
+  (lib (name "HCMS-2901")(type "KiCad")(uri "${KIPRJMOD}/HCMS-290x/HCMS-2901.kicad_sym")(options "")(descr ""))
+  (lib (name "USB-C-USB-2.0-cache")(type "Legacy")(uri "${KIPRJMOD}/USB-C-Connectors/Kicad/USB-C-USB-2.0/USB-C-USB-2.0-cache.lib")(options "")(descr ""))
 )
