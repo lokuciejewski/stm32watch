@@ -5,4 +5,5 @@
   (lib (name "xc9141")(type "KiCad")(uri "${KIPRJMOD}/xc9141.kicad_sym")(options "")(descr ""))
   (lib (name "HCMS-2901")(type "KiCad")(uri "${KIPRJMOD}/HCMS-290x/HCMS-2901.kicad_sym")(options "")(descr ""))
   (lib (name "USB-C-USB-2.0-cache")(type "Legacy")(uri "${KIPRJMOD}/USB-C-Connectors/Kicad/USB-C-USB-2.0/USB-C-USB-2.0-cache.lib")(options "")(descr ""))
+  (lib (name "BH1750FVI-TR")(type "KiCad")(uri "${KIPRJMOD}/BH1750FVI-TR/BH1750FVI-TR.kicad_sym")(options "")(descr ""))
 )

@@ -7,45 +7,132 @@
 
 #include "display.h"
 
-void enable_displays(void) {
-	DISP_EN_GPIO_Port->ODR |= DISP_EN_Pin;
+void init_display() {
+	DISPLAY_IO_PORT->ODR &= ~DISPLAY_DATA_IN;
+	DISPLAY_IO_PORT->ODR &= ~DISPLAY_CLK;
+	DISPLAY_IO_PORT->ODR |= DISPLAY_CE;
+	DISPLAY_IO_PORT->ODR &= ~DISPLAY_RS;
+
+	DISPLAY_IO_PORT->ODR &= ~DISPLAY_RST;
+	HAL_Delay(10);
+	DISPLAY_IO_PORT->ODR |= DISPLAY_RST;
+
+	write_dot_register();
+	write_to_command_register(0b01001111); // command reg 0, no sleep, default led current, max brightness
+	write_to_command_register(0b10000001); // command reg 1, serial data output (this enables second display)
 }
 
-void disable_displays(void) {
-	DISP_EN_GPIO_Port->ODR &= ~DISP_EN_Pin;
+void shift_out_data(const uint8_t data) {
+//	delay_cycles(50);
+	for (int8_t i = 7; i >= 0; i--) {
+		if ((data >> i) & 0b1)
+			DISPLAY_IO_PORT->ODR |= DISPLAY_DATA_IN;
+		else
+			DISPLAY_IO_PORT->ODR &= ~DISPLAY_DATA_IN;
+		DISPLAY_IO_PORT->ODR |= DISPLAY_CLK;
+		DISPLAY_IO_PORT->ODR &= ~DISPLAY_CLK;
+	}
 }
 
-void set_data(const uint8_t data) {
-	SEG_DATA = (SEG_DATA & 0b1111111110000000) | data;
+void write_to_command_register(const uint8_t command) {
+	DISPLAY_IO_PORT->ODR |= DISPLAY_RS;
+	DISPLAY_IO_PORT->ODR &= ~DISPLAY_CE;
+	if (command >> 7)
+		display.reg1 = command;
+	else
+		display.reg0 = command;
+	shift_out_data(command);
+	DISPLAY_IO_PORT->ODR |= DISPLAY_CE;
 }
 
-void print_char(const uint8_t field, const char c) {
-	if (~field & 0b1) {
-		ADD_REG |= A0;
+void write_dot_register(void) {
+	DISPLAY_IO_PORT->ODR &= ~DISPLAY_RS;
+	DISPLAY_IO_PORT->ODR &= ~DISPLAY_CE;
+	for (uint8_t i = 0; i < DISPLAY_DOT_REG_SIZE; i++)
+		shift_out_data(display.dot_register[i]);
+	DISPLAY_IO_PORT->ODR |= DISPLAY_CE;
+}
+
+void display_sleep(const bool sleep) {
+	uint8_t new_reg0 = display.reg0;
+	if (sleep) {
+		new_reg0 &= 0b10111111;
 	} else {
-		ADD_REG &= ~A0;
+		new_reg0 |= 0b01000000;
 	}
-	if ((~field >> 1) & 0b1) {
-		ADD_REG |= A1;
-	} else {
-		ADD_REG &= ~A1;
+	write_to_command_register(new_reg0);
+}
+
+void set_brightness(const uint8_t brightness) {
+	uint8_t new_reg_value = (display.reg0 & 0b11110000)
+			| (brightness & 0b00001111);
+	if (new_reg_value != display.reg0)
+		write_to_command_register(new_reg_value);
+}
+
+
+void set_peak_current_brightness(const uint8_t pcb) {
+	uint8_t new_reg_value = (display.reg0 & 0b11001111)
+				| (pcb & 0b00110000);
+		if (new_reg_value != display.reg0)
+			write_to_command_register(new_reg_value);
+}
+
+
+void move_cursor(const uint8_t position) {
+	display.cursor_position = position;
+}
+
+void write_char(const char c, uint8_t position, const bool snap_to_grid) {
+	if (snap_to_grid)
+		position = position * 5;
+
+	for (int i = 0; i < 5; i++) {
+		display.dot_register[position + i] = FONT[((c - 0x20) * 5) + i];
 	}
-	set_data(c);
-	if ((field >> 2) & 0b1) {
-		WE_REG |= W1;
-		WE_REG &= ~W0;
-	} else {
-		WE_REG |= W0;
-		WE_REG &= ~W1;
+}
+
+uint8_t write_string(const char *str, uint8_t position, const bool snap_to_grid) {
+	if (snap_to_grid)
+		position = position * 5;
+
+	uint8_t str_len = 0;
+
+	while (str[str_len] != '\0') {
+		char c = str[str_len];
+		for (int i = 0; i < 5; i++) {
+			display.dot_register[position + i] = FONT[((c - 0x20) * 5) + i];
+		}
+		position += 5;
+		str_len++;
 	}
-	WE_REG |= W0 | W1;
-	set_data(0);
+
+	return str_len;
+}
+
+void clear_display(void) {
+	for (uint8_t i = 0; i < DISPLAY_DOT_REG_SIZE; i++)
+		display.dot_register[i] = 0;
+//	write_dot_register();
+}
+
+void home(void) {
+	clear_display();
+	display.cursor_position = 0;
+}
+
+void print_char(const char c) {
+	write_char(c, display.cursor_position, true);
+	write_dot_register();
+	display.cursor_position += 1;
 }
 
 void print_string(const char *str) {
-	for (uint8_t i = 0; i < 8; i++) {
-		print_char(i, str[i]);
-	}
+	home();
+	uint8_t str_len = write_string(str, display.cursor_position,
+	true);
+	write_dot_register();
+	display.cursor_position += str_len;
 }
 
 void scroll_text(const char *str, const uint8_t len, const uint16_t delay_ms) {
@@ -67,12 +154,12 @@ void print_time(const uint8_t mode) {
 	switch (mode) {
 	case DISPLAY_MODE_PARTIAL:
 		if (seconds % 2) {
-			sec_dot = '.';
+			sec_dot = ':';
 		}
 		snprintf(buffer, 9, "  %02d%c%02d ", hours, sec_dot, minutes);
 		break;
 	case DISPLAY_MODE_FULL:
-		snprintf(buffer, 9, "%02d.%02d.%02d", hours, minutes, seconds);
+		snprintf(buffer, 9, "%02d:%02d:%02d", hours, minutes, seconds);
 		break;
 	case DISPLAY_MODE_OFF:
 		break;
@@ -82,7 +169,7 @@ void print_time(const uint8_t mode) {
 
 void print_new_time(void) {
 	char buffer[9];
-	snprintf(buffer, 9, "%02d.%02d.%02d", new_hours, new_minutes, new_seconds);
+	snprintf(buffer, 9, "%02d:%02d:%02d", new_hours, new_minutes, new_seconds);
 	print_string(buffer);
 }
 
@@ -94,7 +181,7 @@ void print_time_full(void) {
 	print_time(DISPLAY_MODE_FULL);
 }
 
-void print_time_off(void) {
+void print_time_off() {
 	print_time(DISPLAY_MODE_OFF);
 }
 
@@ -103,7 +190,7 @@ void print_time_blink_hours(void) {
 		print_new_time();
 	} else {
 		char buffer[9];
-		snprintf(buffer, 9, "  .%02d.%02d", new_minutes, new_seconds);
+		snprintf(buffer, 9, "  :%02d:%02d", new_minutes, new_seconds);
 		print_string(buffer);
 	}
 }
@@ -113,7 +200,7 @@ void print_time_blink_minutes(void) {
 		print_new_time();
 	} else {
 		char buffer[9];
-		snprintf(buffer, 9, "%02d.  .%02d", new_hours, new_seconds);
+		snprintf(buffer, 9, "%02d:  :%02d", new_hours, new_seconds);
 		print_string(buffer);
 	}
 }
@@ -123,7 +210,7 @@ void print_time_blink_seconds(void) {
 		print_new_time();
 	} else {
 		char buffer[9];
-		snprintf(buffer, 9, "%02d.%02d.  ", new_hours, new_minutes);
+		snprintf(buffer, 9, "%02d:%02d:  ", new_hours, new_minutes);
 		print_string(buffer);
 	}
 }

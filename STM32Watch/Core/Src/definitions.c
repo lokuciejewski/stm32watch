@@ -7,9 +7,6 @@
 
 #include "definitions.h"
 
-
-const uint32_t SEG_PINS[7] = { GPIO_PIN_6, GPIO_PIN_5, GPIO_PIN_4, GPIO_PIN_3, GPIO_PIN_2, GPIO_PIN_1, GPIO_PIN_0 };
-
 uint32_t battery_voltage = 0;
 
 volatile bool battery_critical_mode = false;
@@ -18,7 +15,8 @@ volatile bool left_button_pressed = false;
 volatile bool right_button_pressed = false;
 
 volatile uint8_t sleep_timeout_counter = 0;
-volatile uint8_t sleep_timeout_s = 5;
+volatile uint8_t dim_timeout_s = 5;
+volatile uint8_t sleep_timeout_s = 10;
 
 uint8_t hours = 12;
 uint8_t minutes = 0;
@@ -42,4 +40,5 @@ uint8_t new_year = 0;
 bool alarm_1 = false;
 bool alarm_2 = false;
 
+volatile Display display = { { 0 }, 0 };
 volatile bool blink = false;

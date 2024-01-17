@@ -15,11 +15,6 @@
 uint8_t byte_to_bcd(uint8_t data);
 uint8_t bcd_to_byte(uint8_t data);
 
-void led_red_on(void);
-void led_red_off(void);
-void led_green_on(void);
-void led_green_off(void);
-
 float get_battery_voltage(void);
 void print_battery_voltage(void);
 

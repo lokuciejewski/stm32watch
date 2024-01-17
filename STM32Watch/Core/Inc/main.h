@@ -31,6 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <math.h>
 #include "definitions.h"
 #include "display.h"
 #include "input.h"
@@ -64,30 +65,20 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define VIB_MOT_Pin GPIO_PIN_14
 #define VIB_MOT_GPIO_Port GPIOC
-#define D0_Pin GPIO_PIN_0
-#define D0_GPIO_Port GPIOA
-#define D1_Pin GPIO_PIN_1
-#define D1_GPIO_Port GPIOA
-#define D2_Pin GPIO_PIN_2
-#define D2_GPIO_Port GPIOA
-#define D3_Pin GPIO_PIN_3
-#define D3_GPIO_Port GPIOA
-#define D4_Pin GPIO_PIN_4
-#define D4_GPIO_Port GPIOA
-#define D5_Pin GPIO_PIN_5
-#define D5_GPIO_Port GPIOA
-#define D6_Pin GPIO_PIN_6
-#define D6_GPIO_Port GPIOA
+#define DISPLAY_DATA_IN_Pin GPIO_PIN_1
+#define DISPLAY_DATA_IN_GPIO_Port GPIOA
+#define DISPLAY_CLK_Pin GPIO_PIN_3
+#define DISPLAY_CLK_GPIO_Port GPIOA
+#define DISPLAY_RS_Pin GPIO_PIN_4
+#define DISPLAY_RS_GPIO_Port GPIOA
+#define DISPLAY_CE_Pin GPIO_PIN_5
+#define DISPLAY_CE_GPIO_Port GPIOA
+#define DISPLAY_RST_Pin GPIO_PIN_6
+#define DISPLAY_RST_GPIO_Port GPIOA
 #define V_BAT_IN_Pin GPIO_PIN_7
 #define V_BAT_IN_GPIO_Port GPIOA
-#define A0_Pin GPIO_PIN_0
-#define A0_GPIO_Port GPIOB
-#define A1_Pin GPIO_PIN_1
-#define A1_GPIO_Port GPIOB
 #define DS3231_EN_Pin GPIO_PIN_8
 #define DS3231_EN_GPIO_Port GPIOA
-#define LED_R_Pin GPIO_PIN_11
-#define LED_R_GPIO_Port GPIOA
 #define DS3231_INT_Pin GPIO_PIN_12
 #define DS3231_INT_GPIO_Port GPIOA
 #define DS3231_INT_EXTI_IRQn EXTI4_15_IRQn
@@ -95,20 +86,13 @@ void Error_Handler(void);
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
-#define DISP_EN_Pin GPIO_PIN_15
-#define DISP_EN_GPIO_Port GPIOA
-#define LED_G_Pin GPIO_PIN_3
-#define LED_G_GPIO_Port GPIOB
 #define BTN_L_Pin GPIO_PIN_4
 #define BTN_L_GPIO_Port GPIOB
 #define BTN_L_EXTI_IRQn EXTI4_15_IRQn
 #define BTN_R_Pin GPIO_PIN_5
 #define BTN_R_GPIO_Port GPIOB
 #define BTN_R_EXTI_IRQn EXTI4_15_IRQn
-#define W0_Pin GPIO_PIN_6
-#define W0_GPIO_Port GPIOB
-#define W1_Pin GPIO_PIN_7
-#define W1_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 extern I2C_HandleTypeDef hi2c1;
 /* USER CODE END Private defines */

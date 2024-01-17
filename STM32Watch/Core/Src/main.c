@@ -98,32 +98,22 @@ int main(void) {
 	MX_I2C1_Init();
 	MX_TIM2_Init();
 	/* USER CODE BEGIN 2 */
-	led_green_on();
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_ADC_Start_DMA(&hadc, &battery_voltage, 2);
-	enable_displays();
+	init_display();
+	set_brightness(10);
 	enable_ds3231_pin();
 
-	if (!check_device(BME280_I2C_ADDRESS)) {
-		print_string("TMP ERR ");
-		led_red_on();
-		HAL_Delay(1000);
-	} else {
-		print_string("TMP OK  ");
-		HAL_Delay(1000);
-	}
-
 	if (!check_device(DS3231_I2C_ADDRESS)) {
-		print_string("RTC ERR ");
-		led_red_on();
+		print_string("RTC err!");
 		HAL_Delay(1000);
 		NVIC_SystemReset();
 	} else {
-		print_string("RTC OK  ");
+		print_string("RTC ok  ");
 		HAL_Delay(1000);
 	}
 
-	print_string(" HELLO  ");
+	print_string(" Hello! ");
 	buzz_motor(300);
 	MenuItem display_partial = { "DISP PAR", print_time_partial, NULL, NULL };
 	MenuItem display_full = { "DISP FUL", print_time_full, &display_partial,
@@ -138,13 +128,19 @@ int main(void) {
 	read_time();
 	read_date();
 	menu.func();
-	led_green_off();
-	led_red_off();
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
+		if (dim_timeout_s != 0 && sleep_timeout_counter >= dim_timeout_s * 2) {
+			set_brightness(1);
+			set_peak_current_brightness(0b10);
+		} else {
+			set_brightness(10);
+			set_peak_current_brightness(0b00);
+		}
+
 		if (sleep_timeout_counter < sleep_timeout_s * 2
 				|| sleep_timeout_s == 0) {
 			read_time();
@@ -168,25 +164,21 @@ int main(void) {
 			menu.func();
 			sleep_timeout_counter++;
 		} else {
-			disable_displays();
+			display_sleep(true);
 			disable_ds3231_pin();
-			led_red_off();
-			led_green_off();
 			print_time_off();
 			HAL_SuspendTick();
 			HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 			enable_ds3231_pin();
-			enable_displays();
+			display_sleep(false);
 		}
 
 		if (alarm_1) {
 			while (!left_button_pressed || !right_button_pressed) {
 				read_time();
-				led_red_on();
-				print_string("ALARM 1 ");
+				print_string("Alarm 1 ");
 				buzz_motor(500);
 				print_time_partial();
-				led_red_off();
 				HAL_Delay(500);
 			}
 			alarm_1 = false;
@@ -195,11 +187,9 @@ int main(void) {
 		if (alarm_2) {
 			while (!left_button_pressed || !right_button_pressed) {
 				read_time();
-				led_red_on();
-				print_string("ALARM 2 ");
+				print_string("Alarm 2 ");
 				buzz_motor(500);
 				print_time_partial();
-				led_red_off();
 				HAL_Delay(500);
 			}
 			alarm_2 = false;
@@ -427,6 +417,8 @@ static void MX_DMA_Init(void) {
  */
 static void MX_GPIO_Init(void) {
 	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+	/* USER CODE BEGIN MX_GPIO_Init_1 */
+	/* USER CODE END MX_GPIO_Init_1 */
 
 	/* GPIO Ports Clock Enable */
 	__HAL_RCC_GPIOC_CLK_ENABLE();
@@ -438,11 +430,8 @@ static void MX_GPIO_Init(void) {
 
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(GPIOA,
-			D0_Pin | D1_Pin | D2_Pin | D3_Pin | D4_Pin | D5_Pin | D6_Pin
-					| DS3231_EN_Pin | LED_R_Pin | DISP_EN_Pin, GPIO_PIN_RESET);
-
-	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(GPIOB, A0_Pin | A1_Pin | LED_G_Pin | W0_Pin | W1_Pin,
+			DISPLAY_DATA_IN_Pin | DISPLAY_CLK_Pin | DISPLAY_RS_Pin
+					| DISPLAY_CE_Pin | DISPLAY_RST_Pin | DS3231_EN_Pin,
 			GPIO_PIN_RESET);
 
 	/*Configure GPIO pin : VIB_MOT_Pin */
@@ -458,21 +447,27 @@ static void MX_GPIO_Init(void) {
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-	/*Configure GPIO pins : D0_Pin D1_Pin D2_Pin D3_Pin
-	 D4_Pin D5_Pin D6_Pin DS3231_EN_Pin
-	 LED_R_Pin DISP_EN_Pin */
-	GPIO_InitStruct.Pin = D0_Pin | D1_Pin | D2_Pin | D3_Pin | D4_Pin | D5_Pin
-			| D6_Pin | DS3231_EN_Pin | LED_R_Pin | DISP_EN_Pin;
+	/*Configure GPIO pins : PA0 PA2 PA11 PA15 */
+	GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_2 | GPIO_PIN_11 | GPIO_PIN_15;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : DISPLAY_DATA_IN_Pin DISPLAY_CLK_Pin DISPLAY_RS_Pin DISPLAY_CE_Pin
+	 DISPLAY_RST_Pin DS3231_EN_Pin */
+	GPIO_InitStruct.Pin = DISPLAY_DATA_IN_Pin | DISPLAY_CLK_Pin | DISPLAY_RS_Pin
+			| DISPLAY_CE_Pin | DISPLAY_RST_Pin | DS3231_EN_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-	/*Configure GPIO pins : A0_Pin A1_Pin LED_G_Pin */
-	GPIO_InitStruct.Pin = A0_Pin | A1_Pin | LED_G_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	/*Configure GPIO pins : PB0 PB1 PB3 PB6
+	 PB7 */
+	GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_6
+			| GPIO_PIN_7;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : DS3231_INT_Pin */
@@ -487,17 +482,12 @@ static void MX_GPIO_Init(void) {
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-	/*Configure GPIO pins : W0_Pin W1_Pin */
-	GPIO_InitStruct.Pin = W0_Pin | W1_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
 	/* EXTI interrupt init*/
 	HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
 
+	/* USER CODE BEGIN MX_GPIO_Init_2 */
+	/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */

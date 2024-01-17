@@ -6,18 +6,39 @@
  */
 #ifndef INC_DISPLAY_H_
 #define INC_DISPLAY_H_
-#include <stdio.h>
+
+#include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include "definitions.h"
-#include "main.h"
+#include "font.h"
+#include "ds3231mz.h"
 
-void enable_displays(void);
+void init_display(void);
 
-void disable_displays(void);
+void shift_out_data(const uint8_t data);
 
-void set_data(const uint8_t data);
+void write_to_command_register(const uint8_t command);
 
-void print_char(const uint8_t field, const char c);
+void write_dot_register(void);
+
+void display_sleep(const bool sleep);
+
+void set_brightness(const uint8_t brightness);
+
+void set_peak_current_brightness(const uint8_t pcb);
+
+void move_cursor(const uint8_t position);
+
+void write_char(const char c, uint8_t position, const bool snap_to_grid);
+
+uint8_t write_string(const char *str, uint8_t position, const bool snap_to_grid);
+
+void clear_display(void);
+
+void home(void);
+
+void print_char(const char c);
 
 void print_string(const char *str);
 

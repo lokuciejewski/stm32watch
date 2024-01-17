@@ -18,30 +18,16 @@
 #define BTN_R_PORT GPIOB
 #define BTN_R GPIO_PIN_5
 
-#define LED_G_PORT GPIOB
-#define LED_G GPIO_PIN_3
-
-#define LED_R_PORT GPIOA
-#define LED_R GPIO_PIN_11
-
 #define SEG_DATA GPIOA->ODR
 #define SEG_PORT GPIOA
 #define ADD_REG GPIOB->ODR
 #define ADD_PORT GPIOB
-#define A0 GPIO_PIN_0
-#define A1 GPIO_PIN_1
-#define WE_REG GPIOB->ODR
-#define WE_PORT GPIOB
-#define W0 GPIO_PIN_6
-#define W1 GPIO_PIN_7
 
 #define DS3231_I2C_ADDRESS 0x68
 #define DS3231_EN GPIO_PIN_8
 #define DS3231_EN_PORT GPIOA
 #define DS3231_INT_PORT GPIOA
 #define DS3231_INT GPIO_PIN_12
-
-#define BME280_I2C_ADDRESS 0x76
 
 #define SHORT_PRESS_DURATION_MS 500
 #define LONG_PRESS_DURATION_MS 1000
@@ -58,12 +44,25 @@
 #define DISPLAY_MODE_PARTIAL 1
 #define DISPLAY_MODE_FULL 2
 
+#define DISPLAY_DOT_REG_SIZE 40 // 320 / 8
+#define DISPLAY_IO_PORT GPIOA
+#define DISPLAY_DATA_IN GPIO_PIN_1
+#define DISPLAY_RS GPIO_PIN_4
+#define DISPLAY_CLK GPIO_PIN_3
+#define DISPLAY_CE GPIO_PIN_5
+#define DISPLAY_RST GPIO_PIN_6
+
 #define BATTERY_CRITICAL_VOLTAGE 3.2
 #define BATTERY_CRITICAL_VOLTAGE_OFF 3.3
 #define BATTERY_LOW_VOLTAGE 3.4
 #define BATTERY_LOW_VOLTAGE_OFF 3.5
 
-extern const uint32_t SEG_PINS[7];
+struct Display {
+	uint8_t dot_register[DISPLAY_DOT_REG_SIZE];
+	uint8_t cursor_position;
+	uint8_t reg0;
+	uint8_t reg1;
+}typedef Display;
 
 extern uint32_t battery_voltage;
 extern volatile bool battery_critical_mode;
@@ -73,6 +72,7 @@ extern volatile bool right_button_pressed;
 
 extern volatile uint8_t sleep_timeout_counter;
 extern volatile uint8_t sleep_timeout_s;
+extern volatile uint8_t dim_timeout_s;
 extern volatile uint8_t timer_compensation;
 
 extern uint8_t hours;
@@ -97,5 +97,6 @@ extern bool alarm_1;
 extern bool alarm_2;
 
 extern volatile bool blink;
+extern volatile Display display;
 
 #endif /* INC_DEFINITIONS_H_ */

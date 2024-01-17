@@ -8,9 +8,7 @@
 #include "menu.h"
 
 void save_changes_notify(void) {
-	led_green_on();
 	buzz_motor(100);
-	led_green_off();
 }
 
 void func_set_date(void) {
@@ -189,15 +187,7 @@ void func_set_time(void) {
 }
 
 void func_status(void) {
-	print_string("G LED ON");
-	led_green_on();
-	HAL_Delay(1000);
-	led_green_off();
-	print_string("R LED ON");
-	led_red_on();
-	HAL_Delay(1000);
-	led_red_off();
-	print_string("VIB TEST");
+	print_string("Vib test");
 	buzz_motor(500);
 	print_battery_voltage();
 	HAL_Delay(1000);
@@ -205,20 +195,43 @@ void func_status(void) {
 
 void func_version(void) {
 	char buffer[9];
-	snprintf(buffer, 9, "VER %03d", FIRMWARE_VERSION);
+	snprintf(buffer, 9, "v.%03d", FIRMWARE_VERSION);
 	print_string(buffer);
 	HAL_Delay(500);
 	wait_for_buttons_released();
+}
+
+void func_set_dim_timeout(void) {
+	char buffer[9];
+	while (true) {
+		if (dim_timeout_s != 0) {
+			snprintf(buffer, 9, "Dim %03ds", dim_timeout_s);
+			print_string(buffer);
+		} else {
+			print_string("Dim  off");
+		}
+		switch (wait_for_input(500)) {
+		case INPUT_RIGHT_BUTTON_SHORT_PRESS:
+			dim_timeout_s++;
+			break;
+		case INPUT_LEFT_BUTTON_SHORT_PRESS:
+			dim_timeout_s--;
+			break;
+		case INPUT_BOTH_BUTTONS_LONG_PRESS:
+			save_changes_notify();
+			return;
+		}
+	}
 }
 
 void func_set_timeout(void) {
 	char buffer[9];
 	while (true) {
 		if (sleep_timeout_s != 0) {
-			snprintf(buffer, 9, "T/O %03dS", sleep_timeout_s);
+			snprintf(buffer, 9, "T/O %03ds", sleep_timeout_s);
 			print_string(buffer);
 		} else {
-			print_string("T/O  OFF");
+			print_string("T/O  off");
 		}
 		switch (wait_for_input(500)) {
 		case INPUT_RIGHT_BUTTON_SHORT_PRESS:
@@ -236,24 +249,26 @@ void func_set_timeout(void) {
 
 void enter_menu(void) {
 
-	MenuItem set_time = { "SET TIME", func_set_time, NULL, NULL };
-	MenuItem set_date = { "SET DATE", func_set_date, &set_time, NULL };
-	MenuItem set_shortcut = { "SHORTCUT", NULL, &set_date, NULL };
-	MenuItem set_timeout = { "TIMEOUT ", func_set_timeout, &set_shortcut, NULL };
-	MenuItem version = { "VERSION ", func_version, &set_timeout, NULL };
-	MenuItem status_menu = { "STATUS ", func_status, &version, NULL };
-	MenuItem alarm_menu = {" ALARM  ", NULL, &status_menu, &set_time};
+	MenuItem set_time = { "Set time", func_set_time, NULL, NULL };
+	MenuItem set_date = { "Set date", func_set_date, &set_time, NULL };
+	MenuItem set_shortcut = { "Shortcut", NULL, &set_date, NULL };
+	MenuItem set_timeout = { "Timeout ", func_set_timeout, &set_shortcut, NULL };
+	MenuItem set_dim_timeout = { "Dim T/O ", func_set_dim_timeout, &set_timeout, NULL };
+	MenuItem version = { "Version ", func_version, &set_dim_timeout, NULL };
+	MenuItem status_menu = { "Status ", func_status, &version, NULL };
+	MenuItem alarm_menu = {" Alarm  ", NULL, &status_menu, &set_time};
 
 	status_menu.next = &alarm_menu;
 	set_time.prev = &alarm_menu;
 	set_time.next = &set_date;
 	set_date.next = &set_timeout;
-	set_timeout.next = &set_shortcut;
+	set_timeout.next = &set_dim_timeout;
+	set_dim_timeout.next = &set_shortcut;
 	version.next = &status_menu;
 	set_shortcut.next = &version;
 
 	MenuItem menu = status_menu;
-	print_string("  MENU  ");
+	print_string("  Menu  ");
 	buzz_motor(100);
 	wait_for_buttons_released();
 	while (true) {
