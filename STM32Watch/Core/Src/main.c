@@ -113,6 +113,15 @@ int main(void) {
 		HAL_Delay(1000);
 	}
 
+	if (!check_device(BH1750_I2C_ADDRESS)) {
+		print_string("LX  err!");
+		HAL_Delay(1000);
+		NVIC_SystemReset();
+	} else {
+		print_string("LX ok   ");
+		HAL_Delay(1000);
+	}
+
 	print_string(" Hello! ");
 	buzz_motor(300);
 	MenuItem display_partial = { "DISP PAR", print_time_partial, NULL, NULL };
@@ -127,18 +136,30 @@ int main(void) {
 	MenuItem menu = display_full;
 	read_time();
 	read_date();
+	if (!bh1750_configure_mode(CONTINUOUS_HIGH_RES_MODE)) {
+		print_string("LX.C ERR");
+		HAL_Delay(500);
+	}
 	menu.func();
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
-		if (dim_timeout_s != 0 && sleep_timeout_counter >= dim_timeout_s * 2) {
-			set_brightness(1);
-			set_peak_current_brightness(0b10);
+		if (auto_brightness) {
+			read_current_light_intensity();
+			uint8_t lx_intensity = light_intensity / 8196;
+			uint8_t new_brightness = (lx_intensity & 0b00001111) == 0 ? 1 : lx_intensity + 4;
+			set_brightness(new_brightness);
 		} else {
-			set_brightness(10);
-			set_peak_current_brightness(0b00);
+			if (dim_timeout_s != 0
+					&& sleep_timeout_counter >= dim_timeout_s * 2) {
+				set_brightness(1);
+				set_peak_current_brightness(0b10);
+			} else {
+				set_brightness(10);
+				set_peak_current_brightness(0b00);
+			}
 		}
 
 		if (sleep_timeout_counter < sleep_timeout_s * 2

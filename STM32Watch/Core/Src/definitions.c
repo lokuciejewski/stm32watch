@@ -36,6 +36,8 @@ uint8_t new_century = 0;
 uint8_t new_month = 0;
 uint8_t new_year = 0;
 
+uint16_t light_intensity = 4097;
+bool auto_brightness = true;
 
 bool alarm_1 = false;
 bool alarm_2 = false;

@@ -38,6 +38,7 @@ extern "C" {
 #include "menu.h"
 #include "helpers.h"
 #include "ds3231mz.h"
+#include "bh1750.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

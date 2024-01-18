@@ -23,6 +23,8 @@
 #define ADD_REG GPIOB->ODR
 #define ADD_PORT GPIOB
 
+#define BH1750_I2C_ADDRESS 0x23
+
 #define DS3231_I2C_ADDRESS 0x68
 #define DS3231_EN GPIO_PIN_8
 #define DS3231_EN_PORT GPIOA
@@ -92,6 +94,9 @@ extern uint8_t new_day;
 extern uint8_t new_month;
 extern uint8_t new_century;
 extern uint8_t new_year;
+
+extern uint16_t light_intensity;
+extern bool auto_brightness;
 
 extern bool alarm_1;
 extern bool alarm_2;
